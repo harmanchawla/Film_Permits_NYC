@@ -1,0 +1,177 @@
+[
+  {
+    "Name": "Empire State Building",
+    "Lat": 40.748817,
+    "Long": -73.985428
+  },
+  {
+    "Name": "Brooklyn Bridge",
+    "Lat": 40.700291,
+    "Long": -73.996699
+  },
+  {
+    "Name": "Statue of Liberty",
+    "Lat": 40.689247,
+    "Long": -74.044502
+  },
+  {
+    "Name": "Vessel, Hudson Yard",
+    "Lat": 40.753759,
+    "Long": -74.002151
+  },
+  {
+    "Name": "One world Observatory",
+    "Lat": 40.713344,
+    "Long": -74.013368
+  },
+  {
+    "Name": "MoMA",
+    "Lat": 40.761433,
+    "Long": -73.977622
+  },
+  {
+    "Name": "Times Square",
+    "Lat": 40.758896,
+    "Long": -73.98513
+  },
+  {
+    "Name": "Flatiron Building",
+    "Lat": 40.741112,
+    "Long": -73.989723
+  },
+  {
+    "Name": "Chrysler building",
+    "Lat": 40.75165,
+    "Long": -73.975353
+  },
+  {
+    "Name": "Madison Square Garden",
+    "Lat": 40.750298,
+    "Long": -73.993324
+  },
+  {
+    "Name": "432 Park Ave",
+    "Lat": 40.761635,
+    "Long": -73.971802
+  },
+  {
+    "Name": "The Grand Central Terminal",
+    "Lat": 40.752655,
+    "Long": -73.977295
+  },
+  {
+    "Name": "One World Trade Center",
+    "Lat": 40.712742,
+    "Long": -74.013382
+  },
+  {
+    "Name": "Penn Station NY",
+    "Lat": 40.75058,
+    "Long": -73.993584
+  },
+  {
+    "Name": "Washington Square Park",
+    "Lat": 40.730823,
+    "Long": -73.997332
+  },
+  {
+    "Name": "Rockfeller Center",
+    "Lat": 40.75874,
+    "Long": -73.978674
+  },
+  {
+    "Name": "9/11 Memorial",
+    "Lat": 40.711484,
+    "Long": -74.012725
+  },
+  {
+    "Name": "Prospect Park BK",
+    "Lat": 40.711484,
+    "Long": -74.012725
+  },
+  {
+    "Name": "New York Public Library",
+    "Lat": 40.753686,
+    "Long": -73.983611
+  },
+  {
+    "Name": "Chelsea market",
+    "Lat": 40.74244,
+    "Long": -74.006144
+  },
+  {
+    "Name": "Macy’s Herald Square",
+    "Lat": 40.750792,
+    "Long": -73.989526
+  },
+  {
+    "Name": "Brooklyn Museum",
+    "Lat": 40.753686,
+    "Long": -73.983611
+  },
+  {
+    "Name": "Yankee Stadium",
+    "Lat": 40.829643,
+    "Long": -73.926175
+  },
+  {
+    "Name": "Union Square",
+    "Lat": 40.735863,
+    "Long": -73.991084
+  },
+  {
+    "Name": "Bryant Park",
+    "Lat": 40.753597,
+    "Long": -73.983233
+  },
+  {
+    "Name": "St. Patrick Cathedral",
+    "Lat": 40.758465,
+    "Long": -73.975993
+  },
+  {
+    "Name": "The Met Cloisters",
+    "Lat": 40.864848,
+    "Long": -73.931808
+  },
+  {
+    "Name": "Whitney Museum of Art",
+    "Lat": 40.739588,
+    "Long": -74.008863
+  },
+  {
+    "Name": "Federal Hall",
+    "Lat": 40.707258,
+    "Long": -74.010356
+  },
+  {
+    "Name": "Brooklyn Heights Promenade",
+    "Lat": 40.696194,
+    "Long": -73.997504
+  },
+  {
+    "Name": "New York Transit Museum",
+    "Lat": 40.690938,
+    "Long": -73.989936
+  },
+  {
+    "Name": "The High Line",
+    "Lat": 40.747993,
+    "Long": -74.004765
+  },
+  {
+    "Name": "Gulliver’s Gate",
+    "Lat": 40.757584,
+    "Long": -73.986995
+  },
+  {
+    "Name": "Carnegie Hall",
+    "Lat": 40.765126,
+    "Long": -73.979924
+  },
+  {
+    "Name": "Strawberry Fields",
+    "Lat": 40.775556,
+    "Long": -73.974722
+  }
+]
