@@ -8,7 +8,7 @@
 
 ---
 ## Technology and Tools
---
+
 1. Python: Pyspark, Dateutil, Matplotlib
 2. NoSQL: MongoDB
 3. Tableau
