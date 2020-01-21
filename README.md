@@ -6,7 +6,7 @@
 
 • Scrutinized the incentives offered to production houses on the account of job creation
 
----
+
 ## Technology and Tools
 
 1. Python: Pyspark, Dateutil, Matplotlib
