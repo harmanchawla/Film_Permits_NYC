@@ -1,6 +1,4 @@
-# theBiggestData
-Analyzing Film Permits Granted in New York City
-
+# Analyzing Film Permits Granted in New York City
 
 • Analyzed Film Permits data gathered using web-crawlers and charted tends over the decade using Python
 
