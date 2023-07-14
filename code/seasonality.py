@@ -15,13 +15,7 @@ from pyspark.sql import SparkSession
 def check_leap_year(year):
     '''  Check if a given year is a leap year '''
     if (year % 4) == 0:
-        if (year % 100) == 0:
-            if (year % 400) == 0:
-                return True
-            else:
-                return False
-        else:
-            return True
+        return (year % 100) == 0 and (year % 400) == 0 or year % 100 != 0
     else:
         return False
 
@@ -29,33 +23,32 @@ def check_leap_year(year):
 def _init_dict():
     ''' Initialize a dictionary. Key: Datetime object, value: 0'''
     master_dct = {}
-    for year in range(2011, 2022):
-        for month in range(1, 13):
-            if month == 2:
-                if check_leap_year(year):
-                    for date in range(1, 30):
-                        str_date = "{}.{}.{}".format(month, date, year)
-                        dateObj = datetime.strptime(str_date, "%m.%d.%Y")
-                        dateObj = datetime.date(dateObj)
-                        master_dct[dateObj] = 0
-                else:
-                    for date in range(1, 29):
-                        str_date = "{}.{}.{}".format(month, date, year)
-                        dateObj = datetime.strptime(str_date, "%m.%d.%Y")
-                        dateObj = datetime.date(dateObj)
-                        master_dct[dateObj] = 0
-            elif month in [1, 3, 5, 7, 8, 10, 12]:
-                for date in range(1, 32):
-                    str_date = "{}.{}.{}".format(month, date, year)
+    for year, month in itertools.product(range(2011, 2022), range(1, 13)):
+        if month == 2:
+            if check_leap_year(year):
+                for date in range(1, 30):
+                    str_date = f"{month}.{date}.{year}"
                     dateObj = datetime.strptime(str_date, "%m.%d.%Y")
                     dateObj = datetime.date(dateObj)
                     master_dct[dateObj] = 0
             else:
-                for date in range(1, 31):
-                    str_date = "{}.{}.{}".format(month, date, year)
+                for date in range(1, 29):
+                    str_date = f"{month}.{date}.{year}"
                     dateObj = datetime.strptime(str_date, "%m.%d.%Y")
                     dateObj = datetime.date(dateObj)
                     master_dct[dateObj] = 0
+        elif month in [1, 3, 5, 7, 8, 10, 12]:
+            for date in range(1, 32):
+                str_date = f"{month}.{date}.{year}"
+                dateObj = datetime.strptime(str_date, "%m.%d.%Y")
+                dateObj = datetime.date(dateObj)
+                master_dct[dateObj] = 0
+        else:
+            for date in range(1, 31):
+                str_date = f"{month}.{date}.{year}"
+                dateObj = datetime.strptime(str_date, "%m.%d.%Y")
+                dateObj = datetime.date(dateObj)
+                master_dct[dateObj] = 0
     return master_dct
 
 
@@ -82,24 +75,24 @@ def _valid_permits_by_date(df):
         print(i)
         if start[i] <= end[j]:
             master_dct[start[i]] += 1
-            i = i + 1
+            i += 1
         else:
             endDate = end[j]
             endDate += timedelta(days=1)
             master_dct[endDate] -= 1
-            j = j + 1
+            j += 1
 
     while i < len(start):
         print(i)
         master_dct[start[i]] += 1
-        i = i + 1
+        i += 1
 
     while j < len(end):
         print(j)
         endDate = end[j]
         endDate += timedelta(days=1)
         master_dct[endDate] -= 1
-        j = j + 1
+        j += 1
 
     return master_dct
 
@@ -109,10 +102,7 @@ def _convert_to_dates(element):
     from dateutil.parser import parse
     try:
         date = parse(element)
-        if date.year > 2022 or date.year < 2008:
-            return parse('01-01-0001')
-        else:
-            return date
+        return parse('01-01-0001') if date.year > 2022 or date.year < 2008 else date
     except:
         return parse('01-01-0001')
 

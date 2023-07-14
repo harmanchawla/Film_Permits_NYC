@@ -21,15 +21,15 @@ with open('zip-income-data.csv', 'w') as file:
 
         soup = BeautifulSoup(session.get(base_url1 + pincode).content, 'html.parser')
         try: # if the zipcode obtained from film-permits is corrupt or doesn't exist.
-        	ref = soup.find('td').a['href']
-        	soup = BeautifulSoup(session.get(base_url2 + ref).content, 'html.parser')
+            ref = soup.find('td').a['href']
+            soup = BeautifulSoup(session.get(base_url2 + ref).content, 'html.parser')
 
-	        for el in soup.find_all(class_ = "hilite")[:4]:
-	            data += el.contents
+            for el in soup.find_all(class_ = "hilite")[:4]:
+                data += el.contents
 
-	        writer.writerow(data)
+            writer.writerow(data)
         except:
-            print("Skipped ZipCode {}".format(pincode))
+            print(f"Skipped ZipCode {pincode}")
             continue
 
 

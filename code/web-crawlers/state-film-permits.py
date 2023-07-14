@@ -25,9 +25,9 @@ file.writerow([
 ])
 
 for page in range(page_start, page_end):
-    url = 'http://rochester.nydatabases.com/ajax/' + pincode + '?c1%5B%5D=&textsearch=&start=' + str(page) + '&_=' + str(data_id)
+    url = f'http://rochester.nydatabases.com/ajax/{pincode}?c1%5B%5D=&textsearch=&start={str(page)}&_={str(data_id)}'
     response = (requests.get(url)).json()
-    
+
     for key, value in response['result'].items():
 
         # Incase you get face an encoding error, uncomment below
