@@ -9,6 +9,7 @@
 	duration-by-type.csv, duration-by-borough.csv, overall-popularity.csv, opularity-year-2010...2019.csv,
 
 '''
+
 import os
 import sys
 import time
@@ -28,7 +29,7 @@ HADOOP_EXE = '/usr/bin/hadoop'
 HADOOP_LIBPATH = '/opt/cloudera/parcels/CDH/lib'
 HADOOP_STREAMING = 'hadoop-mapreduce/hadoop-streaming.jar'
 
-hfs = "{} fs".format(HADOOP_EXE)
+hfs = f"{HADOOP_EXE} fs"
 
 ''' UDF to calculate the shooting time'''
 def shootDuration(startTime, endTime):
@@ -42,9 +43,7 @@ def shootDuration(startTime, endTime):
 
 	durationSeconds = durationObj.total_seconds()
 	durationHours = durationSeconds/3600
-	if durationHours < 0:
-		return 0.0
-	return durationHours
+	return 0.0 if durationHours < 0 else durationHours
 
 shootingTime = udf(shootDuration, DoubleType())
 
@@ -63,10 +62,7 @@ def _get_year(dateString):
 	try:
 		dateObj = parse(dateString, fuzzy=True)
 		year = dateObj.year
-		if year > 2000 and year < 2030:
-			return year
-		else:
-			return 0
+		return year if year > 2000 and year < 2030 else 0
 	except:
 		return 0
 
@@ -96,35 +92,29 @@ def popularity(df):
 		"Zipcode").count().orderBy("count", ascending=False)
 	zip_popularity.show(10)
 	try:
-		cmd = "{} -rm -r overall-popularity.csv".format(hfs)
+		cmd = f"{hfs} -rm -r overall-popularity.csv"
 		os.system(cmd)
 	except:
 		print("Failed to remove the file or the file doesn't exist.")
-		pass
 	try:
 		print("Writing file: overall-popularity.csv")
 		zip_popularity.write.csv("overall-popularity.csv")
 	except:
 		print("Failed to write the file.")
-		pass
-
 	years = list(range(2011, 2020))
 	for year in years:
 		df_year = temp_df.filter(col("startYear") == year)
 		df_year = df_year.groupBy("Zipcode").count()
 		try:
-			cmd = "{} -rm -r popularity-year-{}.csv".format(hfs, year)
+			cmd = f"{hfs} -rm -r popularity-year-{year}.csv"
 			os.system(cmd)
 		except:
 			print("Failed to remove or file not found")
-			pass
 		try:
-			print("Writing file: popularity-year-{}.csv".format(year))
-			df_year.write.csv("popularity-year-{}.csv".format(year))
+			print(f"Writing file: popularity-year-{year}.csv")
+			df_year.write.csv(f"popularity-year-{year}.csv")
 		except:
-			print("Failed to write file: popularity-year-{}.csv".format(year))
-			pass
-
+			print(f"Failed to write file: popularity-year-{year}.csv")
 	return df
 
 
@@ -136,21 +126,19 @@ def get_analyis(df):
 		future analysis
 	'''
 	try:
-		cmd = "{} -rm -r permits-by-borough.csv".format(hfs)
+		cmd = f"{hfs} -rm -r permits-by-borough.csv"
 		os.system(cmd)
-		cmd = "{} -rm -r duration-by-borough.csv".format(hfs)
+		cmd = f"{hfs} -rm -r duration-by-borough.csv"
 		os.system(cmd)
-		cmd = "{} -rm -r permits-by-type.csv".format(hfs)
+		cmd = f"{hfs} -rm -r permits-by-type.csv"
 		os.system(cmd)
-		cmd = "{} -rm -r borough-deep-view.csv".format(hfs)
+		cmd = f"{hfs} -rm -r borough-deep-view.csv"
 		os.system(cmd)
-		cmd = "{} -rm -r duration-by-type.csv".format(hfs)
+		cmd = f"{hfs} -rm -r duration-by-type.csv"
 		os.system(cmd)
 
 	except:
 		print("File not removed.")
-		pass
-
 	#
 	df = df.withColumn("Duration (in Hours)", shootingTime(
 		"StartDateTime", "EndDateTime"))  # add a duration column
@@ -165,8 +153,6 @@ def get_analyis(df):
 		temp_df.write.csv("permits-by-borough.csv", header=False)
 	except:
 		print("Failed to write file: permits-by-borough.csv")
-		pass
-
 	# TWO: distibution of film permits by type
 	temp_df = df.groupBy("EventType").count().orderBy("count", ascending=False)
 	print("Distibution of film permits by type")
@@ -176,8 +162,6 @@ def get_analyis(df):
 		temp_df.write.csv("permits-by-type.csv")
 	except:
 		print("Failed to write file: permits-by-type.csv")
-		pass
-
 	# THREE: distribution by type and borough
 	temp_df = df.groupBy(["Borough", "EventType"]).count().orderBy(
 		["Borough", "count"], ascending=False)
@@ -188,8 +172,6 @@ def get_analyis(df):
 		temp_df.write.csv("borough-deep-view.csv")
 	except:
 		print("Failed to write: borough-deep-view.csv")
-		pass
-
 	# FOUR: popularity of a neighborhood
 	popularity(df)
 
@@ -205,8 +187,6 @@ def get_analyis(df):
 		temp_df.write.csv("duration-by-type.csv")
 	except:
 		print("Failed to  write: duration-by-type.csv")
-		pass
-
 	# SIX: average duration of permits by borough
 	temp_df = df.select("Borough", "Duration (in Hours)").groupBy("Borough").agg(mean(
 		"Duration (in Hours)").alias("Avg Duration")).orderBy("Avg Duration", ascending=False)
@@ -218,8 +198,6 @@ def get_analyis(df):
 		temp_df.write.csv("duration-by-borough.csv")
 	except:
 		print("Failed to write: duration-by-borough.csv")
-		pass
-
 	return df
 
 
@@ -242,5 +220,5 @@ if __name__ == "__main__":
 	dic = get_seasonality(spark, df.select("StartDateTime", "EndDateTime"))
 
 	end = time.time()
-	print("Time taken: {}".format(end-start))
+	print(f"Time taken: {end - start}")
 	print("Files produced: permits-by-borough.csv, permits-by-type.csv, borough-deep-view.csv, popularity.csv, duration-by-type.csv, duration-by-borough.csv, overall-popularity.csv, popularity-year-2010...2019.csv, ")
